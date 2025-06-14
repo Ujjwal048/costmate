@@ -27,20 +27,20 @@ type ServiceCost struct {
 }
 
 func FetchServiceCosts(startDate, endDate time.Time) ([]ServiceCost, float64, error) {
-	logger.Logger.Printf("Attempting to create AWS config...")
+	logger.Info("Attempting to create AWS config...")
 	cfg, err := config.LoadDefaultConfig(context.Background())
 	if err != nil {
 		return nil, 0, fmt.Errorf("error loading AWS config: %v", err)
 	}
-	logger.Logger.Printf("AWS config loaded successfully.")
+	logger.Info("AWS config loaded successfully.")
 
 	svc := costexplorer.NewFromConfig(cfg)
-	logger.Logger.Printf("Cost Explorer client created.")
+	logger.Info("Cost Explorer client created.")
 
 	startDateStr := startDate.Format(dateFormat)
 	endDateStr := endDate.Format(dateFormat)
 
-	logger.Logger.Printf("Fetching costs from %s to %s (exclusive end date)...", startDateStr, endDateStr)
+	logger.Info("Fetching costs from %s to %s (exclusive end date)...", startDateStr, endDateStr)
 
 	input := &costexplorer.GetCostAndUsageInput{
 		TimePeriod: &types.DateInterval{

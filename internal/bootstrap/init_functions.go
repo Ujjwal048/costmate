@@ -18,7 +18,7 @@ func InitDependencies() {
 
 	// Initialize dollar rate
 	if err := utils.GetDollarRate(); err != nil {
-		logger.Logger.Printf("Warning: Failed to fetch dollar rate: %v", err)
+		logger.Error("Failed to fetch dollar rate", err)
 	}
 }
 
@@ -26,7 +26,7 @@ func GetInitialCost(table *tview.Table, currentMonth time.Time, currency string)
 	var err error
 	serviceCosts, totalCost, err := utils.FetchCost(currentMonth)
 	if err != nil {
-		logger.Logger.Printf("Error Fetching Initial Cost: %v", err)
+		logger.Error("Failed to fetch initial costs", err)
 		return nil, 0, err
 	}
 

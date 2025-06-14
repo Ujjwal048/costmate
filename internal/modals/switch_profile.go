@@ -13,11 +13,10 @@ import (
 
 // Function to show profile selection
 func SwitchProfile(app *tview.Application, flex *tview.Flex, table *tview.Table, info *tview.TextView, onSelect func(string)) {
-	// CurrentMonth := time.Now()
 
 	// Function to show error modal
 	showErrorModal := func(app *tview.Application, flex *tview.Flex, message string) {
-		logger.Logger.Printf("Error: %s", message)
+		logger.Error("Error", fmt.Errorf(message))
 		modal := tview.NewModal().
 			SetText(message).
 			AddButtons([]string{"OK"}).
@@ -54,7 +53,7 @@ func SwitchProfile(app *tview.Application, flex *tview.Flex, table *tview.Table,
 			return
 		}
 
-		logger.Logger.Printf("Switched to profile: %s", profileName)
+		logger.Info("Switched to profile: %s", profileName)
 		info = ui.UpdateInfo(info, profileName, app, flex)
 		onSelect(profileName)
 	}

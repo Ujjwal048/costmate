@@ -34,7 +34,7 @@ func SetupKeyboardHandlers(app *tview.Application, flex *tview.Flex, table *tvie
 					var err error
 					*serviceCosts, *totalCost, err = utils.FetchCost(*currentMonth)
 					if err != nil {
-						logger.Logger.Printf("Error fetching costs: %v", err)
+						logger.Error("Error fetching costs: %v", err)
 						return
 					}
 					utils.UpdateTableWithCosts(table, *serviceCosts, *totalCost, constants.DefaultCurrency, *currentMonth)
@@ -47,7 +47,7 @@ func SetupKeyboardHandlers(app *tview.Application, flex *tview.Flex, table *tvie
 				} else {
 					*currency = "USD"
 				}
-				logger.Logger.Printf("Switched currency to: %s", *currency)
+				logger.Info("Switched currency to: %s", *currency)
 				utils.UpdateTableWithCosts(table, *serviceCosts, *totalCost, *currency, *currentMonth)
 
 			case 's':
@@ -58,7 +58,7 @@ func SetupKeyboardHandlers(app *tview.Application, flex *tview.Flex, table *tvie
 					var err error
 					*serviceCosts, *totalCost, err = utils.FetchCost(selectedMonth)
 					if err != nil {
-						logger.Logger.Printf("Error fetching costs: %v", err)
+						logger.Error("Error fetching costs: %v", err)
 						return
 					}
 					*currentMonth = selectedMonth

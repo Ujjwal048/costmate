@@ -32,7 +32,7 @@ func FetchCost(Month time.Time) ([]aws.ServiceCost, float64, error) {
 		endDate := startDate.AddDate(0, 1, 0)
 		serviceCosts, totalCost, err = aws.FetchServiceCosts(startDate, endDate)
 		if err != nil {
-			logger.Logger.Printf("Error Fetching Cost: %v", err)
+			logger.Error("Error Fetching Cost: %v", err)
 			return nil, 0, err
 		}
 	}

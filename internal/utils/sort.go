@@ -12,7 +12,7 @@ import (
 
 func SortServiceCosts(table *tview.Table, serviceCosts []aws.ServiceCost, totalCost float64, currency string, currentMonth time.Time ) {
 
-	logger.Logger.Printf("Sorting services by cost")
+	logger.Info("Sorting services by cost")
 	// Sort services by cost in descending order
 	sort.Slice(serviceCosts, func(i, j int) bool {
 		return serviceCosts[i].Cost > serviceCosts[j].Cost

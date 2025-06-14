@@ -1,8 +1,6 @@
 package main
 
 import (
-	"log"
-
 	"costmate/internal/bootstrap"
 	"costmate/internal/constants"
 	"costmate/internal/handler"
@@ -18,7 +16,7 @@ func main() {
 
 	serviceCosts, totalCost, err := bootstrap.GetInitialCost(table, currentMonth, currency)
 	if err != nil {
-		logger.Logger.Printf("Error: %v", err)
+		logger.Error("Failed to fetch initial costs", err)
 		return
 	}
 	// Set initial selection
@@ -28,7 +26,6 @@ func main() {
 	handler.SetupKeyboardHandlers(app, flex, table, info, &serviceCosts, &totalCost, &currency, &currentMonth)
 
 	if err := app.SetRoot(flex, true).EnableMouse(true).Run(); err != nil {
-		logger.Logger.Printf("Fatal error: %v", err)
-		log.Fatal(err)
+		logger.Fatal("Application error", err)
 	}
 }

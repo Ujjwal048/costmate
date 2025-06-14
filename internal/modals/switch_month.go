@@ -12,7 +12,7 @@ import (
 
 func SwitchMonth(app *tview.Application, flex *tview.Flex, table *tview.Table, info *tview.TextView, onSelect func(time.Time)) {
 	// Function to show month selection
-	logger.Logger.Printf("Opening month selection")
+	logger.Info("Opening month selection")
 	months := make([]time.Time, 12)
 	now := time.Now()
 	// Get the first day of the current month

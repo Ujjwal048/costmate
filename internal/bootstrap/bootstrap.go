@@ -75,7 +75,7 @@ func LoadInitialView() (*tview.Application, *tview.Flex, *tview.Table, *tview.Te
 
 	// Set focus to table
 	app.SetFocus(table)
-	logger.Logger.Printf("Application UI initialized")
+	logger.Info("Application UI initialized")
 
 	return app, flex, table, info
 

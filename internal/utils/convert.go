@@ -28,7 +28,7 @@ func GetDollarRate() error {
 	}
 
 	currentRate = data["rates"].(map[string]interface{})["INR"].(float64)
-	logger.Logger.Printf("Dollar Rate: %f", currentRate)
+	logger.Info("Dollar Rate: %f", currentRate)
 	return nil
 }
 
