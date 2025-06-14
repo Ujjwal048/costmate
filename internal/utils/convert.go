@@ -7,27 +7,31 @@ import (
 	"net/http"
 )
 
-func ConvertDollarToRupee(value float64) float64 {
-	rate := GetCurrentDollarRate()
-	return value * rate
-}
+var currentRate float64
 
-func GetCurrentDollarRate() float64 {
+// InitializeDollarRate fetches and stores the current dollar rate
+func GetDollarRate() error {
 	resp, err := http.Get("https://api.frankfurter.app/latest?from=USD&to=INR")
 	if err != nil {
-		return 0
+		return err
 	}
 	defer resp.Body.Close()
+
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
-		return 0
+		return err
 	}
+
 	var data map[string]interface{}
-	err = json.Unmarshal(body, &data)
-	if err != nil {
-		return 0
+	if err := json.Unmarshal(body, &data); err != nil {
+		return err
 	}
-	value := data["rates"].(map[string]interface{})["INR"].(float64)
-	logger.Logger.Printf("Dollar Rate: %f", value)
-	return value
+
+	currentRate = data["rates"].(map[string]interface{})["INR"].(float64)
+	logger.Logger.Printf("Dollar Rate: %f", currentRate)
+	return nil
+}
+
+func ConvertDollarToRupee(value float64) float64 {
+	return value * currentRate
 }

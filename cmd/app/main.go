@@ -20,6 +20,11 @@ func main() {
 	}
 	defer logger.Close()
 
+	// Initialize dollar rate
+	if err := utils.GetDollarRate(); err != nil {
+		logger.Logger.Printf("Warning: Failed to fetch dollar rate: %v", err)
+	}
+
 	currentMonth := constants.CurrentMonth
 	currency := constants.DefaultCurrency
 	app, flex, table, info := bootstrap.LoadInitialView()
@@ -74,7 +79,7 @@ func main() {
 				} else {
 					currency = "USD"
 				}
-				logger.Logger.Printf("Currency switched currency to: %s", currency)
+				logger.Logger.Printf("Switched currency to: %s", currency)
 				utils.UpdateTableWithCosts(table, serviceCosts, totalCost, currency, currentMonth)
 
 			case 's':
