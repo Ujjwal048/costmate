@@ -3,7 +3,7 @@ package constants
 import "time"
 
 // UseDummyData determines whether to use dummy data or fetch real costs from AWS
-const UseDummyData = true
+const UseDummyData = false
 const DefaultCurrency = "USD"
 
 var CurrentMonth = time.Now()
