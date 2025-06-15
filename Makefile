@@ -4,6 +4,7 @@ GOCMD=go
 GOBUILD=$(GOCMD) build
 GORUN=$(GOCMD) run
 GOCLEAN=$(GOCMD) clean
+APP_NAME=costmate
 
 # Docker commands
 DOCKER_COMPOSE=docker compose
